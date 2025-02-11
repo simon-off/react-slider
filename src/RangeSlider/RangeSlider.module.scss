@@ -1,0 +1,108 @@
+.fieldset {
+  border-radius: 8px;
+  legend {
+    font-size: 1rem;
+  }
+}
+
+.range-input {
+  $track-height: 12px;
+  $thumb-size: 24px;
+
+  margin: 2rem;
+  pointer-events: none;
+  display: grid;
+  border-radius: 8px;
+  pointer-events: none;
+  row-gap: 16px;
+  grid-template-rows: [top] auto [track-start] auto [track-end] auto [bottom];
+  grid-template-columns: [track-start] var(--lower) [selected-start] 1fr [selected-end] var(--upper) [track-end];
+
+  output {
+    position: relative;
+    grid-row: top;
+
+    &.lower {
+      grid-column: selected-start;
+    }
+
+    &.upper {
+      grid-column: selected-end;
+    }
+
+    span {
+      position: absolute;
+      transform: translateX(-50%);
+      bottom: 0;
+      padding: 4px;
+      border-radius: 4px;
+      background-color: rgba(76, 100, 94, 0.25);
+    }
+  }
+
+  .track {
+    grid-row: track;
+    grid-column: track;
+    height: $track-height;
+    pointer-events: none;
+    background-color: rgb(188, 203, 207);
+    border-radius: 8px;
+  }
+
+  .selected {
+    grid-row: track;
+    grid-column: 2/3;
+    height: $track-height;
+    pointer-events: none;
+    background-color: #4fa4d9;
+    border-radius: inherit;
+  }
+
+  input {
+    grid-row: track;
+    grid-column: 1/-1;
+    height: $track-height;
+    background: none;
+    pointer-events: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: calc(100% + $thumb-size);
+    margin: 0 0 0 ($thumb-size / 2) * -1;
+
+    &::-webkit-slider-thumb,
+    &::-moz-range-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      pointer-events: auto;
+      height: $thumb-size;
+      width: $thumb-size;
+      border: none;
+      border-radius: $thumb-size;
+      background-color: #4c645e;
+    }
+
+    &:focus-visible,
+    &:hover {
+      outline: none;
+
+      &::-webkit-slider-thumb,
+      &::-moz-range-thumb {
+        background-color: #679287;
+        cursor: pointer;
+      }
+    }
+  }
+
+  datalist {
+    grid-row: track-end;
+    grid-column: track;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  option {
+    border: 1px solid rgba(76, 100, 94, 0.35);
+    border-radius: 2px;
+  }
+}
